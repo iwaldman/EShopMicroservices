@@ -1,0 +1,14 @@
+﻿
+
+POST https://localhost:5050/products
+Content-Type : application/json
+
+{
+  "name": "Apples",
+  "categories": ["Food", "Fruit"],
+  "description": "Delicious Red Apples",
+  "price": 10.95,
+  "imageFileName": "red-apples.jpg"
+}
+
+###
