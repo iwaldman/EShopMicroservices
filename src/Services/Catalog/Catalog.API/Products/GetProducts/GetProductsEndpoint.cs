@@ -23,8 +23,8 @@ public class GetProductsEndpoint : ICarterModule
             )
             .WithName("GetProducts")
             .Produces<GetProductsResponse>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest)
-            .WithSummary("Gets all products.")
-            .WithDescription("Gets all products in the catalog.");
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .WithSummary("Get Products")
+            .WithDescription("Get Products");
     }
 }
