@@ -1,3 +1,7 @@
+/// <summary>
+/// Configures the web application builder, adds necessary services, and builds the application.
+/// </summary>
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +12,13 @@ builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(assembly);
 });
+
+builder
+    .Services.AddMarten(options =>
+    {
+        options.Connection(builder.Configuration.GetConnectionString("Database")!);
+    })
+    .UseLightweightSessions();
 
 var app = builder.Build();
 

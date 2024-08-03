@@ -1,6 +1,4 @@
-﻿using Catalog.API.Models;
-
-namespace Catalog.API.Products.CreateProduct;
+﻿namespace Catalog.API.Products.CreateProduct;
 
 /// <summary>
 /// Command to create a new product.
@@ -27,7 +25,7 @@ public record CreateProductResult(Guid Id);
 /// <summary>
 /// Handler for the CreateProductCommand.
 /// </summary>
-internal class CreateProductCommandHandler
+internal class CreateProductCommandHandler(IDocumentSession documentSession)
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     /// <summary>
@@ -36,13 +34,12 @@ internal class CreateProductCommandHandler
     /// <param name="command">The command to create a product.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the CreateProductResult.</returns>
-    public Task<CreateProductResult> Handle(
+    public async Task<CreateProductResult> Handle(
         CreateProductCommand command,
         CancellationToken cancellationToken
     )
     {
-        // create a product entity from the command
-
+        // Creates a new product instance from the command parameters.
         var product = new Product
         {
             Name = command.Name,
@@ -52,9 +49,11 @@ internal class CreateProductCommandHandler
             ImageFile = command.ImageFile
         };
 
-        // save the product entity to the database
+        // Stores the product in the document session.
+        documentSession.Store(product);
+        await documentSession.SaveChangesAsync(cancellationToken);
 
-        // return the product entity's id
-        return Task.FromResult(new CreateProductResult(Guid.NewGuid()));
+        // Returns the result of the command with the product's unique identifier.
+        return await Task.FromResult(new CreateProductResult(product.Id));
     }
 }

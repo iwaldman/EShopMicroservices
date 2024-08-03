@@ -1,4 +1,7 @@
 ﻿
+GET https://localhost:5050/products
+
+###
 
 POST https://localhost:5050/products
 Content-Type : application/json
