@@ -23,10 +23,28 @@ public record CreateProductCommand(
 public record CreateProductResult(Guid Id);
 
 /// <summary>
+/// Validator for the CreateProductCommand.
+/// </summary>
+public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+{
+    // Initializes a new instance of the <see cref="CreateProductCommandValidator"/> class.
+    public CreateProductCommandValidator()
+    {
+        RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.");
+        RuleFor(x => x.Categories).NotEmpty().WithMessage("Categories are required.");
+        RuleFor(x => x.Description).NotEmpty().WithMessage("Description is required.");
+        RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0.");
+        RuleFor(x => x.ImageFile).NotEmpty().WithMessage("Image file is required.");
+    }
+}
+
+/// <summary>
 /// Handler for the CreateProductCommand.
 /// </summary>
-internal class CreateProductCommandHandler(IDocumentSession documentSession)
-    : ICommandHandler<CreateProductCommand, CreateProductResult>
+internal class CreateProductCommandHandler(
+    IDocumentSession documentSession,
+    ILogger<CreateProductCommandHandler> logger
+) : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     /// <summary>
     /// Handles the CreateProductCommand.
@@ -39,6 +57,8 @@ internal class CreateProductCommandHandler(IDocumentSession documentSession)
         CancellationToken cancellationToken
     )
     {
+        logger.LogInformation("CreateProductCommandHandler.Handle called with {@Command}", command);
+
         // Creates a new product instance from the command parameters.
         var product = new Product
         {
