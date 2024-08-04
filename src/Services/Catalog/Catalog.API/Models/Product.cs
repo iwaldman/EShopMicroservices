@@ -21,6 +21,11 @@ public class Product
     public required string Description { get; set; }
 
     /// <summary>
+    /// Gets or sets the categories of the product.
+    /// </summary>
+    public List<string> Categories { get; set; } = [];
+
+    /// <summary>
     /// Gets or sets the price of the product.
     /// </summary>
     public decimal Price { get; set; }
@@ -29,9 +34,4 @@ public class Product
     /// Gets or sets the image file name of the product.
     /// </summary>
     public required string ImageFile { get; set; }
-
-    /// <summary>
-    /// Gets or sets the categories of the product.
-    /// </summary>
-    public List<string> Categories { get; set; } = [];
 }

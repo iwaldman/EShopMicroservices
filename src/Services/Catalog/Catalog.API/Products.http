@@ -3,6 +3,16 @@ GET https://localhost:5050/products
 
 ###
 
+
+GET https://localhost:5050/products/019118c9-85ff-4ed9-8c00-e81876f6d79b
+
+###
+
+
+GET https://localhost:5050/products/category/Food
+
+###
+
 POST https://localhost:5050/products
 Content-Type : application/json
 
@@ -10,8 +20,24 @@ Content-Type : application/json
   "name": "Apples",
   "categories": ["Food", "Fruit"],
   "description": "Delicious Red Apples",
-  "price": 10.95,
-  "imageFileName": "red-apples.jpg"
+  "price": 9.95,
+  "imageFile": "red-apples.jpg"
 }
 
 ###
+
+PUT https://localhost:5050/products
+Content-Type : application/json
+
+{
+  "id": "019118c9-85ff-4ed9-8c00-e81876f6d79b",
+  "name": "Apples",
+  "categories": ["Food", "Fruit"],
+  "description": "Delicious Red Apples",
+  "price": 10.95,
+  "imageFile": "red-apples.jpg"
+}
+
+###
+
+DELETE https://localhost:5050/products/01911d90-3d43-4be0-8757-7e0de0d4afa8
