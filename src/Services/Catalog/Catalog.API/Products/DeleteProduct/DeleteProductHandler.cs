@@ -43,10 +43,8 @@ public class DeleteProductCommandValidator : AbstractValidator<DeleteProductComm
 /// <summary>
 /// Handler for the DeleteProductCommand.
 /// </summary>
-internal class DeleteProductHandler(
-    IDocumentSession documentSession,
-    ILogger<DeleteProductHandler> logger
-) : ICommandHandler<DeleteProductCommand, DeleteProductResult>
+internal class DeleteProductHandler(IDocumentSession documentSession)
+    : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {
     /// <summary>
     /// Handles the delete product command.
@@ -59,8 +57,6 @@ internal class DeleteProductHandler(
         CancellationToken cancellationToken
     )
     {
-        logger.LogInformation("DeleteProductHandler.Handle called with {@Command}", command);
-
         documentSession.Delete<Product>(command.Id);
         await documentSession.SaveChangesAsync(cancellationToken);
 

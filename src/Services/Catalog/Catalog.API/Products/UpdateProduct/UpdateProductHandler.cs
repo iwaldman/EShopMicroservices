@@ -71,10 +71,8 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
 /// <summary>
 /// Handler for the UpdateProductCommand.
 /// </summary>
-internal class UpdateProductCommandHandler(
-    IDocumentSession documentSession,
-    ILogger<UpdateProductCommandHandler> logger
-) : ICommandHandler<UpdateProductCommand, UpdateProductResult>
+internal class UpdateProductCommandHandler(IDocumentSession documentSession)
+    : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
     /// <summary>
     /// Handles the update product command.
@@ -87,15 +85,9 @@ internal class UpdateProductCommandHandler(
         CancellationToken cancellationToken
     )
     {
-        logger.LogInformation("UpdateProductCommandHandler.Handle called with {@Command}", command);
-
-        var product = await documentSession.LoadAsync<Product>(command.Id, cancellationToken);
-
-        if (product is null)
-        {
-            logger.LogWarning("Product with ID {Id} was not found", command.Id);
-            throw new ProductNotFoundException(command.Id);
-        }
+        var product =
+            await documentSession.LoadAsync<Product>(command.Id, cancellationToken)
+            ?? throw new ProductNotFoundException(command.Id);
 
         product.Name = command.Name;
         product.Description = command.Description;

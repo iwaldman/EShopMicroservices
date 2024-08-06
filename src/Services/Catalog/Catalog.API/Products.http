@@ -17,7 +17,6 @@ POST https://localhost:5050/products
 Content-Type : application/json
 
 {
-  "name": "",
   "categories": ["Food", "Fruit"],
   "description": "Delicious Red Apples",
   "price": 9.95,

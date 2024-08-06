@@ -41,10 +41,8 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 /// <summary>
 /// Handler for the CreateProductCommand.
 /// </summary>
-internal class CreateProductCommandHandler(
-    IDocumentSession documentSession,
-    ILogger<CreateProductCommandHandler> logger
-) : ICommandHandler<CreateProductCommand, CreateProductResult>
+internal class CreateProductCommandHandler(IDocumentSession documentSession)
+    : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     /// <summary>
     /// Handles the CreateProductCommand.
@@ -57,8 +55,6 @@ internal class CreateProductCommandHandler(
         CancellationToken cancellationToken
     )
     {
-        logger.LogInformation("CreateProductCommandHandler.Handle called with {@Command}", command);
-
         // Creates a new product instance from the command parameters.
         var product = new Product
         {
