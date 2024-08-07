@@ -40,3 +40,7 @@ Content-Type : application/json
 ###
 
 DELETE https://localhost:5050/products/01911d90-3d43-4be0-8757-7e0de0d4afa8
+
+### 
+
+GET https://localhost:5050/health
