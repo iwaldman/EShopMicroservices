@@ -1,19 +1,21 @@
-﻿
-GET https://localhost:5050/products?pageNumber=1&pageSize=1
+﻿@HOST = https://localhost:6060
+
+
+GET {{HOST}}/products
 
 ###
 
 
-GET https://localhost:5050/products/01911d91-2aa3-40a5-9c32-51c20d1f5e83
+GET {{HOST}}/products/01911d91-2aa3-40a5-9c32-51c20d1f5e83
 
 ###
 
 
-GET https://localhost:5050/products/category/Smart%20Phone
+GET {{HOST}}/products/category/Smart%20Phone
 
 ###
 
-POST https://localhost:5050/products
+POST {{HOST}}/products
 Content-Type : application/json
 
 {
@@ -25,7 +27,7 @@ Content-Type : application/json
 
 ###
 
-PUT https://localhost:5050/products
+PUT {{HOST}}/products
 Content-Type : application/json
 
 {
@@ -39,8 +41,9 @@ Content-Type : application/json
 
 ###
 
-DELETE https://localhost:5050/products/01911d90-3d43-4be0-8757-7e0de0d4afa8
+DELETE {{HOST}}/products/01911d90-3d43-4be0-8757-7e0de0d4afa8
 
 ### 
 
-GET https://localhost:5050/health
+GET {{HOST}}/health
+
