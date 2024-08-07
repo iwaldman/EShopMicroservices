@@ -1,5 +1,5 @@
 ﻿
-GET https://localhost:5050/products
+GET https://localhost:5050/products?pageNumber=1&pageSize=1
 
 ###
 
@@ -9,7 +9,7 @@ GET https://localhost:5050/products/01911d91-2aa3-40a5-9c32-51c20d1f5e83
 ###
 
 
-GET https://localhost:5050/products/category/Food
+GET https://localhost:5050/products/category/Smart%20Phone
 
 ###
 
