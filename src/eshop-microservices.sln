@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocks", "BuildingB
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E419AD1C-00D5-4E51-9136-A1D577F7F8FC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{7C2DB370-8A14-4C82-8E14-F03EFF287056}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Baskets", "Baskets", "{7C2DB370-8A14-4C82-8E14-F03EFF287056}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{BF7482F8-9600-40C2-909D-E04F3F90296E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baskets.API", "Services\Baskets\Baskets.API\Baskets.API.csproj", "{BF7482F8-9600-40C2-909D-E04F3F90296E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
