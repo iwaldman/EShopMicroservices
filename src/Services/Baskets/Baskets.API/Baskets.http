@@ -1,16 +1,16 @@
 ﻿@HOST = https://localhost:5051
-@USERNAME = swn
+@USERNAME = fred
 
 ### 
 GET {{HOST}}/baskets/{{USERNAME}}
 
 ###
-POST {{HOST}}/baskets/{{USERNAME}}
+POST {{HOST}}/baskets
 Content-Type : application/json
 {
 	"cart": 
     {
-      "userName": "swn",
+      "userName": "fred",
       "items": [
         {
           "quantity": 2,

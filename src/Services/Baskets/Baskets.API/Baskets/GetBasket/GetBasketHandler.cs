@@ -4,7 +4,8 @@ public record GetBasketQuery(string UserName) : IQuery<GetBasketResult>;
 
 public record GetBasketResult(ShoppingCart Cart);
 
-internal class GetBasketHandler : IQueryHandler<GetBasketQuery, GetBasketResult>
+internal class GetBasketHandler(IBasketRepository basketRepository)
+    : IQueryHandler<GetBasketQuery, GetBasketResult>
 {
     public async Task<GetBasketResult> Handle(
         GetBasketQuery query,
@@ -12,8 +13,8 @@ internal class GetBasketHandler : IQueryHandler<GetBasketQuery, GetBasketResult>
     )
     {
         // Get basket from DB
-        // var basket = await _repository.GetBasketAsync(query.UserName);
+        var basket = await basketRepository.GetBasketAsync(query.UserName, cancellationToken);
 
-        return new GetBasketResult(new ShoppingCart { UserName = "swn" });
+        return new GetBasketResult(basket);
     }
 }

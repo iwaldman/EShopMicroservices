@@ -15,7 +15,19 @@ builder.Services.AddValidatorsFromAssembly(assembly);
 
 builder.Services.AddCarter();
 
+var connectionString = builder.Configuration.GetConnectionString("Database");
+
+builder
+    .Services.AddMarten(options =>
+    {
+        options.Connection(connectionString!);
+        options.Schema.For<ShoppingCart>().Identity(x => x.UserName);
+    })
+    .UseLightweightSessions();
+
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 var app = builder.Build();
 
