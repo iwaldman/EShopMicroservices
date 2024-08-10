@@ -1,10 +1,10 @@
-﻿namespace Catalog.API.Products.GetProductByCategory;
+﻿namespace Catalog.API.Products.GetProductsByCategory;
 
 //public record GetProductByCategoryRequest(string Category);
 
 public record GetProductByCategoryResponse(IEnumerable<Product> Products);
 
-public class GetProductByCategoryEndpoint : ICarterModule
+public class GetProductsByCategoryEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -12,7 +12,7 @@ public class GetProductByCategoryEndpoint : ICarterModule
                 "/products/category/{category}",
                 async (string category, ISender sender) =>
                 {
-                    var result = await sender.Send(new GetProductByCategoryQuery(category));
+                    var result = await sender.Send(new GetProductsByCategoryQuery(category));
 
                     var response = result.Adapt<GetProductByCategoryResponse>();
 

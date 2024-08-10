@@ -9,7 +9,7 @@ public record GetProductsResult(IEnumerable<Product> Products);
 
 public class GetProductsQueryValidator : AbstractValidator<GetProductsQuery>
 {
-    // Initializes a new instance of the <see cref="CreateProductCommandValidator"/> class.
+    // Initializes a new instance of the <see cref="GetProductsQueryValidator"/> class.
     public GetProductsQueryValidator()
     {
         RuleFor(x => x.PageNumber)

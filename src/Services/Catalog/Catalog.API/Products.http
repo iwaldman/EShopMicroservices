@@ -1,4 +1,4 @@
-﻿@HOST = https://localhost:6060
+﻿@HOST = https://localhost:5050
 
 
 GET {{HOST}}/products
