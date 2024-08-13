@@ -1,15 +1,33 @@
-﻿using Grpc.Core;
+﻿namespace Discount.Grpc.Services;
 
-namespace Discount.Grpc.Services;
-
-public class DiscountService : DiscountProtoService.DiscountProtoServiceBase
+public class DiscountService(DiscountContext discountContext, ILogger<DiscountService> logger)
+    : DiscountProtoService.DiscountProtoServiceBase
 {
-    public override Task<CouponModel> GetDiscount(
+    public override async Task<CouponModel> GetDiscount(
         GetDiscountRequest request,
         ServerCallContext context
     )
     {
-        return base.GetDiscount(request, context);
+        var coupon = await discountContext.Coupons.FirstOrDefaultAsync(
+            c => c.ProductName == request.ProductName
+        );
+
+        coupon ??= new Coupon
+        {
+            ProductName = "No Discount",
+            Amount = 0,
+            Description = "No Discount Description"
+        };
+
+        var couponModel = coupon.Adapt<CouponModel>();
+
+        logger.LogInformation(
+            "Discount is retrieved for ProductName : {ProductName}, Amount : {Amount}",
+            coupon.ProductName,
+            coupon.Amount
+        );
+
+        return couponModel;
     }
 
     public override Task<CouponModel> CreateDiscount(
