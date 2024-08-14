@@ -1,3 +1,4 @@
+using Discount.Grpc;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
@@ -5,7 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+// Application services
 var assembly = typeof(Program).Assembly;
+
+builder.Services.AddCarter();
 
 builder.Services.AddMediatR(config =>
 {
@@ -16,7 +21,7 @@ builder.Services.AddMediatR(config =>
 
 builder.Services.AddValidatorsFromAssembly(assembly);
 
-builder.Services.AddCarter();
+// Data services
 
 var pgConnectionString = builder.Configuration.GetConnectionString("Database");
 
@@ -28,8 +33,6 @@ builder
     })
     .UseLightweightSessions();
 
-builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 
@@ -39,6 +42,17 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = redisConnectionString;
 });
+
+// Grpc services
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+{
+    var discountUrl = builder.Configuration["GrpcSettings:DiscountUrl"];
+    options.Address = new Uri(discountUrl!);
+});
+
+// Cross-cutting services
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddHealthChecks().AddNpgSql(pgConnectionString!).AddRedis(redisConnectionString!);
 
