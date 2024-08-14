@@ -36,7 +36,7 @@ public class DiscountService(DiscountContext discountContext, ILogger<DiscountSe
     )
     {
         var coupon =
-            request.Adapt<Coupon>()
+            request.Coupon.Adapt<Coupon>()
             ?? throw new RpcException(
                 new Status(StatusCode.InvalidArgument, "Invalid request object.")
             );
@@ -60,7 +60,7 @@ public class DiscountService(DiscountContext discountContext, ILogger<DiscountSe
     )
     {
         var coupon =
-            request.Adapt<Coupon>()
+            request.Coupon.Adapt<Coupon>()
             ?? throw new RpcException(
                 new Status(StatusCode.InvalidArgument, "Invalid request object.")
             );
