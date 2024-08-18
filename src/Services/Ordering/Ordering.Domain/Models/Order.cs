@@ -70,10 +70,10 @@ public class Order : Aggregate<OrderId>
 
     public void Remove(ProductId productId)
     {
-        var orderItem =
-            _orderItems.FirstOrDefault(x => x.ProductId == productId)
-            ?? throw new InvalidOperationException("Order item not found.");
-
-        _orderItems.Remove(orderItem);
+        var orderItem = _orderItems.FirstOrDefault(x => x.ProductId == productId);
+        if (orderItem is not null)
+        {
+            _orderItems.Remove(orderItem);
+        }
     }
 }
