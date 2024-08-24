@@ -31,7 +31,7 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
             DateTime.UtcNow
         );
 
-        (string Detail, string Title, int StatusCode) details = exception switch
+        (string Detail, string Title, int StatusCode) = exception switch
         {
             InternalServerException
                 => (
@@ -67,9 +67,9 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
 
         var problemDetails = new ProblemDetails
         {
-            Title = details.Title,
-            Detail = details.Detail,
-            Status = details.StatusCode,
+            Title = Title,
+            Detail = Detail,
+            Status = StatusCode,
             Instance = httpContext.Request.Path
         };
 
